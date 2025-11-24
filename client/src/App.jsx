@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const BACKEND_URL = "http://localhost:3000/parse";
+const BACKEND_URL = "https://resume-parse1-0.onrender.com/parse";
 
 const TABS = [
   "Overview",
