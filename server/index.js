@@ -25,19 +25,27 @@ const PORT = process.env.PORT || 5000;
 // Start cleanup task
 startCleanupTask();
 
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: true
-}));
+const allowedOrigins = ["http://localhost:5173", process.env.CLIENT_URL];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
 app.use(express.json({ limit: "10mb" }));
-app.use('/temp', express.static(TEMP_DIR, {
-  setHeaders: (res, filePath) => {
-    if (path.extname(filePath).toLowerCase() === '.pdf') {
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', 'inline');
-    }
-  }
-}));
+app.use(
+  "/temp",
+  express.static(TEMP_DIR, {
+    setHeaders: (res, filePath) => {
+      if (path.extname(filePath).toLowerCase() === ".pdf") {
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader("Content-Disposition", "inline");
+      }
+    },
+  })
+);
 
 app.get("/", (req, res) => {
   res.json({ message: "Resume Parser Backend Running ✅" });
@@ -48,7 +56,9 @@ app.use("/api/resume", resumeRoutes);
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error("Unhandled Error:", err);
-  res.status(500).json({ error: "Internal Server Error", details: err.message });
+  res
+    .status(500)
+    .json({ error: "Internal Server Error", details: err.message });
 });
 
 app.listen(PORT, () => {
