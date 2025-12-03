@@ -1,5 +1,7 @@
 // index.js
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
 import cors from "cors";
 import path from "path";
 import fs from "fs";
@@ -18,12 +20,15 @@ if (!fs.existsSync(TEMP_DIR)) {
 }
 
 const app = express();
-const PORT = 5001; // backend port
+const PORT = process.env.PORT || 5000;
 
 // Start cleanup task
 startCleanupTask();
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true
+}));
 app.use(express.json({ limit: "10mb" }));
 app.use('/temp', express.static(TEMP_DIR, {
   setHeaders: (res, filePath) => {
@@ -47,5 +52,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Server listening on http://localhost:${PORT}`);
+  console.log(`Server listening on http://localhost:${PORT}`);
 });

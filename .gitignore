@@ -1,0 +1,57 @@
+
+# Logs
+
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+ 
+# Node Modules (Global Ignore)
+ 
+node_modules/
+client/node_modules/
+server/node_modules/
+
+ 
+# Build Output
+ 
+dist/
+dist-ssr/
+build/
+out/
+
+ 
+# Environment Files
+ 
+.env
+.env.local
+.env.*.local
+client/.env
+server/.env
+
+ 
+# System Files
+ 
+.DS_Store
+Thumbs.db
+
+ 
+# Editor Files
+ 
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+ 
+# Misc
+ 
+*.local
